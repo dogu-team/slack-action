@@ -1,0 +1,15 @@
+name: "Dogu Slack"
+description: "Dogu Slack Template"
+inputs:
+  template:
+    required: true
+    description: "Template name"
+  slackToken:
+    required: true
+    description: "Slack Bot Token"
+  slackChannel:
+    required: true
+    description: "Slack Channel"
+runs:
+  using: "node16"
+  main: "dist/index.js"

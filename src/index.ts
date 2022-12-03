@@ -6,8 +6,8 @@ import { users } from "./user";
 
 (async () => {
   try {
-    const slackToken = core.getInput('slackToken');
-    const slackChannel = core.getInput('slackChannel');
+    const slackToken = core.getInput('slack-token');
+    const slackChannel = core.getInput('slack-channel');
     const templateName = core.getInput("template");
 
     Slack.init(slackToken);

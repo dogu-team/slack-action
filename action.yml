@@ -4,10 +4,10 @@ inputs:
   template:
     required: true
     description: "Template name"
-  slackToken:
+  slack-token:
     required: true
     description: "Slack Bot Token"
-  slackChannel:
+  slack-channel:
     required: true
     description: "Slack Channel"
 runs:

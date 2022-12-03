@@ -18554,8 +18554,8 @@ const slack_1 = __nccwpck_require__(2552);
 const template_1 = __nccwpck_require__(7269);
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const slackToken = core_1.default.getInput('slackToken');
-        const slackChannel = core_1.default.getInput('slackChannel');
+        const slackToken = core_1.default.getInput('slack-token');
+        const slackChannel = core_1.default.getInput('slack-channel');
         const templateName = core_1.default.getInput("template");
         slack_1.Slack.init(slackToken);
         const template = template_1.templates[templateName];

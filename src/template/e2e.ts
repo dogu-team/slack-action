@@ -9,8 +9,6 @@ export async function e2e(option: SlackOption) {
   const { workflow, serverUrl, repo, runId, actor } = github.context
   const { pull_request, comment } = github.context.payload
   const nickname = users[actor] ? users[actor] : actor;
-  
-  // github.event.head_commit.url
 
   await Slack.web.chat.postMessage({
     channel: option.channel,
@@ -33,7 +31,7 @@ export async function e2e(option: SlackOption) {
           "type": "section",
           "text": {
             "type": "mrkdwn",
-            "text": `Commit\n - author: <@${nickname}>(${ actor })\n - message: ${ JSON.stringify(comment) }\n - link: ${ pull_request ? pull_request.html_url : 'error' }`
+            "text": `Commit\n - author: @${nickname} (${ actor })\n - message: ${ JSON.stringify(github.context.payload) }\n - link: ${ pull_request ? pull_request.html_url : 'error' }`
           }
         }
       ]

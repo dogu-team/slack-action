@@ -18656,10 +18656,9 @@ const slack_1 = __nccwpck_require__(2552);
 const user_1 = __nccwpck_require__(9713);
 function e2e(option) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { workflow, serverUrl, repo, runId, actor } = github.context;
-        const { pull_request, comment } = github.context.payload;
-        const nickname = user_1.users[actor] ? user_1.users[actor] : actor;
-        console.log(JSON.stringify(github.context.payload, null, 2));
+        const context = github.context;
+        const payload = github.context.payload;
+        const nickname = user_1.users[context.actor] ? user_1.users[context.actor] : context.actor;
         yield slack_1.Slack.web.chat.postMessage({
             channel: option.channel,
             "blocks": [
@@ -18667,21 +18666,21 @@ function e2e(option) {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": `*${workflow}* :circleci-fail:`
+                        "text": `*${context.workflow}* :circleci-fail:`
                     }
                 },
                 {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": `Action\n${serverUrl}/${repo.repo}/actions/runs/${runId}`
+                        "text": `Action\n${context.serverUrl}/${context.repo.repo}/actions/runs/${context.runId}`
                     }
                 },
                 {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": `Commit\n - author: @${nickname} (${actor})\n - message: 123\n - link: ${pull_request ? pull_request.html_url : 'error'}`
+                        "text": `Commit\n - author: <${nickname}> (${context.actor})\n - message: ${payload.head_commit.message}\n - link: ${payload.pull_request ? payload.pull_request.html_url : payload.head_commit.url}`
                     }
                 }
             ]

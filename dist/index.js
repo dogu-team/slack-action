@@ -18659,6 +18659,7 @@ function e2e(option) {
         const { workflow, serverUrl, repo, runId, actor } = github.context;
         const { pull_request, comment } = github.context.payload;
         const nickname = user_1.users[actor] ? user_1.users[actor] : actor;
+        console.log(JSON.stringify(github.context.payload, null, 2));
         yield slack_1.Slack.web.chat.postMessage({
             channel: option.channel,
             "blocks": [
@@ -18680,7 +18681,7 @@ function e2e(option) {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": `Commit\n - author: @${nickname} (${actor})\n - message: ${JSON.stringify(github.context.payload)}\n - link: ${pull_request ? pull_request.html_url : 'error'}`
+                        "text": `Commit\n - author: @${nickname} (${actor})\n - message: 123\n - link: ${pull_request ? pull_request.html_url : 'error'}`
                     }
                 }
             ]

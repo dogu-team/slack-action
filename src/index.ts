@@ -1,16 +1,15 @@
 import core from "@actions/core"
-import github from "@actions/github"
+import "./types"
+
 import { Slack } from "./sdk/slack";
 import { templates } from "./template/template";
-import { users } from "./user";
 
 (async () => {
   try {
-    const slackToken = core.getInput('slack-token');
-    const slackChannel = core.getInput('slack-channel');
+    const slackChannel = core.getInput('slack-channel-id');
     const templateName = core.getInput("template");
 
-    Slack.init(slackToken);
+    Slack.init(process.env.SLACK_BOT_TOKEN);
 
     const template = templates[templateName];
     if(!template) {

@@ -18550,14 +18550,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __importDefault(__nccwpck_require__(2186));
+__nccwpck_require__(5077);
 const slack_1 = __nccwpck_require__(2552);
 const template_1 = __nccwpck_require__(7269);
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const slackToken = core_1.default.getInput('slack-token');
-        const slackChannel = core_1.default.getInput('slack-channel');
+        const slackChannel = core_1.default.getInput('slack-channel-id');
         const templateName = core_1.default.getInput("template");
-        slack_1.Slack.init(slackToken);
+        slack_1.Slack.init(process.env.SLACK_BOT_TOKEN);
         const template = template_1.templates[templateName];
         if (!template) {
             core_1.default.setFailed("No template specified");
@@ -18663,6 +18663,16 @@ const e2e_1 = __nccwpck_require__(3965);
 exports.templates = {
     e2e: e2e_1.e2e,
 };
+
+
+/***/ }),
+
+/***/ 5077:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 
 /***/ }),

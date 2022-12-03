@@ -4,12 +4,9 @@ inputs:
   template:
     required: true
     description: "Template name"
-  slack-token:
+  slack-channel-id:
     required: true
-    description: "Slack Bot Token"
-  slack-channel:
-    required: true
-    description: "Slack Channel"
+    description: "Slack Channel Id"
 runs:
   using: "node16"
   main: "dist/index.js"

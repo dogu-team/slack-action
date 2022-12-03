@@ -18656,9 +18656,10 @@ const slack_1 = __nccwpck_require__(2552);
 const user_1 = __nccwpck_require__(9713);
 function e2e(option) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { workflow } = github.context;
-        const actor = github.context.actor;
+        const { workflow, serverUrl, repo, runId, actor } = github.context;
+        const { pull_request, comment } = github.context.payload;
         const nickname = user_1.users[actor] ? user_1.users[actor] : actor;
+        // github.event.head_commit.url
         yield slack_1.Slack.web.chat.postMessage({
             channel: option.channel,
             "blocks": [
@@ -18666,21 +18667,21 @@ function e2e(option) {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": `*${nickname}*\n*${{ workflow }}* :circleci-fail:`
+                        "text": `*${workflow}* :circleci-fail:`
                     }
                 },
                 {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "Action\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                        "text": `Action\n${serverUrl}/${repo.repo}/actions/runs/${runId}`
                     }
                 },
                 {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": "Commit\n - author: ${{github.event.head_commit.author.name}}\n - message: ${{github.event.head_commit.message}}\n - link: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                        "text": `Commit\n - author: <@${nickname}>(${actor})\n - message: ${JSON.stringify(comment)}\n - link: ${pull_request ? pull_request.html_url : 'error'}`
                     }
                 }
             ]

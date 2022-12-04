@@ -18658,7 +18658,7 @@ function e2e(option) {
     return __awaiter(this, void 0, void 0, function* () {
         const context = github.context;
         const payload = github.context.payload;
-        const nickname = user_1.users[context.actor] ? user_1.users[context.actor] : context.actor;
+        const userId = user_1.users[context.actor] ? user_1.users[context.actor] : context.actor;
         yield slack_1.Slack.web.chat.postMessage({
             channel: option.channel,
             "blocks": [
@@ -18673,14 +18673,14 @@ function e2e(option) {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": `Action\n${context.serverUrl}/${context.repo.repo}/actions/runs/${context.runId}`
+                        "text": `Action\n${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
                     }
                 },
                 {
                     "type": "section",
                     "text": {
                         "type": "mrkdwn",
-                        "text": `Commit\n - author: <${nickname}> (${context.actor})\n - message: ${payload.head_commit.message}\n - link: ${payload.pull_request ? payload.pull_request.html_url : payload.head_commit.url}`
+                        "text": `Commit\n - author: <@${userId}> (${context.actor})\n - message: ${payload.head_commit.message}\n - link: ${payload.pull_request ? payload.pull_request.html_url : payload.head_commit.url}`
                     }
                 }
             ]
@@ -18725,11 +18725,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.users = void 0;
 exports.users = {
-    PBW99: '박병욱 Yow',
-    Ikalli: '안도언 Daniel',
-    "dev-kyun": '조필균 Felix',
-    "lumyjuwon": "성주원",
-    "": "이태형 Logan"
+    PBW99: 'U02STMS83K9',
+    Ikalli: 'U02U2HR0G74',
+    "dev-kyun": 'U02TR5SK2CX',
+    "lumyjuwon": "U02SDTQ3TFU",
+    "oneofthezombies": "U034W9NRM1D",
+    "": "U044ZV03F8R"
 };
 
 

@@ -3,9 +3,10 @@ export type User = {
 }
 
 export const users: User = {
-  PBW99: '박병욱 Yow',
-  Ikalli: '안도언 Daniel',
-  "dev-kyun": '조필균 Felix',
-  "lumyjuwon": "성주원",
-  "": "이태형 Logan"
+  PBW99: 'U02STMS83K9',
+  Ikalli: 'U02U2HR0G74',
+  "dev-kyun": 'U02TR5SK2CX',
+  "lumyjuwon": "U02SDTQ3TFU",
+  "oneofthezombies": "U034W9NRM1D",
+  "": "U044ZV03F8R"
 }

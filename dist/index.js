@@ -18644,6 +18644,7 @@ async function cd(option) {
     const fail = core.getInput('fail', { required: false }) === 'true';
     await slack_1.Slack.web.chat.postMessage({
         channel: option.channel,
+        icon_emoji: ':arona:',
         blocks: [
             {
                 type: 'section',

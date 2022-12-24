@@ -18,6 +18,7 @@ jobs:
 
       - name: Push
         run: |
+          git config --global user.name "Dogu Bot"
           git add dist
           git commit -m "Release"
           git push

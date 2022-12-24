@@ -13,6 +13,7 @@ export async function cd(option: SlackOption) {
 
   await Slack.web.chat.postMessage({
     channel: option.channel,
+    icon_emoji: ':arona:',
     blocks: [
       {
         type: 'section',

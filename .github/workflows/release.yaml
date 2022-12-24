@@ -5,11 +5,21 @@ on:
     branches: ['main']
 
 jobs:
-  build:
+  Release:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Build
+        run: |
+          yarn run build
+
+      - name: Push
+        run: |
+          git add dist
+          git commit -m "Release"
+          git push
 
       - name: Delete old release
         uses: dev-drprasad/delete-tag-and-release@v0.2.0

@@ -1,0 +1,26 @@
+name: Release
+
+on:
+  push:
+    branches: ['main']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Delete old release
+        uses: dev-drprasad/delete-tag-and-release@v0.2.0
+        with:
+          tag_name: v1.0
+          delete_release: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create new release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v1.0
+          token: ${{ secrets.GITHUB_TOKEN }}

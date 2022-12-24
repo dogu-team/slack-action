@@ -20,7 +20,7 @@ jobs:
         run: |
           git config --global user.name "Dogu Bot"
           git add dist
-          git commit -m "Release"
+          git diff-index --quiet HEAD || git commit -m "Release"
           git push
 
       - name: Delete old release

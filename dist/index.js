@@ -18559,36 +18559,27 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 __nccwpck_require__(5077);
 const slack_1 = __nccwpck_require__(2552);
 const template_1 = __nccwpck_require__(7269);
-(() => __awaiter(void 0, void 0, void 0, function* () {
+(async () => {
     try {
         const slackChannel = core.getInput('slack-channel-id');
-        const templateName = core.getInput("template");
+        const templateName = core.getInput('template');
         slack_1.Slack.init(process.env.SLACK_BOT_TOKEN);
         const template = template_1.templates[templateName];
         if (!template) {
-            core.setFailed("No template specified");
+            core.setFailed('No template specified');
             return;
         }
-        yield template({ channel: slackChannel });
+        await template({ channel: slackChannel });
     }
     catch (error) {
         core.setFailed(error.message);
     }
-}))();
+})();
 
 
 /***/ }),
@@ -18608,6 +18599,70 @@ var Slack;
     }
     Slack.init = init;
 })(Slack = exports.Slack || (exports.Slack = {}));
+
+
+/***/ }),
+
+/***/ 8533:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.cd = void 0;
+const github = __importStar(__nccwpck_require__(5438));
+const core = __importStar(__nccwpck_require__(2186));
+const slack_1 = __nccwpck_require__(2552);
+const user_1 = __nccwpck_require__(9713);
+async function cd(option) {
+    const context = github.context;
+    const payload = github.context.payload;
+    const userId = user_1.users[context.actor] ? user_1.users[context.actor] : context.actor;
+    const fail = core.getInput('fail', { required: false }) === 'true';
+    await slack_1.Slack.web.chat.postMessage({
+        channel: option.channel,
+        blocks: [
+            {
+                type: 'section',
+                text: {
+                    type: 'mrkdwn',
+                    text: `*${context.workflow}* ${fail ? ':circleci-fail:' : ':circleci-pass:'}`,
+                },
+            },
+            {
+                type: 'section',
+                text: {
+                    type: 'mrkdwn',
+                    text: `*Action*\n- trigger: <@${userId}>\n- url: ${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
+                },
+            },
+        ],
+    });
+}
+exports.cd = cd;
 
 
 /***/ }),
@@ -18640,51 +18695,42 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.e2e = void 0;
 const github = __importStar(__nccwpck_require__(5438));
 const slack_1 = __nccwpck_require__(2552);
 const user_1 = __nccwpck_require__(9713);
-function e2e(option) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const context = github.context;
-        const payload = github.context.payload;
-        const userId = user_1.users[context.actor] ? user_1.users[context.actor] : context.actor;
-        yield slack_1.Slack.web.chat.postMessage({
-            channel: option.channel,
-            "blocks": [
-                {
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": `*${context.workflow}* :circleci-fail:`
-                    }
+async function e2e(option) {
+    const context = github.context;
+    const payload = github.context.payload;
+    const userId = user_1.users[context.actor] ? user_1.users[context.actor] : context.actor;
+    await slack_1.Slack.web.chat.postMessage({
+        channel: option.channel,
+        blocks: [
+            {
+                type: 'section',
+                text: {
+                    type: 'mrkdwn',
+                    text: `*${context.workflow}* :circleci-fail:`,
                 },
-                {
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": `Action\n${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
-                    }
+            },
+            {
+                type: 'section',
+                text: {
+                    type: 'mrkdwn',
+                    text: `*Action*\n${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
                 },
-                {
-                    "type": "section",
-                    "text": {
-                        "type": "mrkdwn",
-                        "text": `Commit\n - author: <@${userId}> (${context.actor})\n - message: ${payload.head_commit.message}\n - link: ${payload.pull_request ? payload.pull_request.html_url : payload.head_commit.url}`
-                    }
-                }
-            ]
-        });
+            },
+            {
+                type: 'section',
+                text: {
+                    type: 'mrkdwn',
+                    text: `*Commit*\n - author: <@${userId}> (${context.actor})\n - message: ${payload.head_commit.message}\n - link: ${payload.pull_request
+                        ? payload.pull_request.html_url
+                        : payload.head_commit.url}`,
+                },
+            },
+        ],
     });
 }
 exports.e2e = e2e;
@@ -18699,8 +18745,10 @@ exports.e2e = e2e;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.templates = void 0;
+const cd_1 = __nccwpck_require__(8533);
 const e2e_1 = __nccwpck_require__(3965);
 exports.templates = {
+    cd: cd_1.cd,
     e2e: e2e_1.e2e,
 };
 
@@ -18727,10 +18775,10 @@ exports.users = void 0;
 exports.users = {
     PBW99: 'U02STMS83K9',
     Ikalli: 'U02U2HR0G74',
-    "dev-kyun": 'U02TR5SK2CX',
-    "lumyjuwon": "U02SDTQ3TFU",
-    "oneofthezombies": "U034W9NRM1D",
-    "": "U044ZV03F8R"
+    'dev-kyun': 'U02TR5SK2CX',
+    lumyjuwon: 'U02SDTQ3TFU',
+    oneofthezombies: 'U034W9NRM1D',
+    leeth4115: 'U044ZV03F8R',
 };
 
 

@@ -1,0 +1,1 @@
+{"version":3,"file":"types.d.ts","sourceRoot":"","sources":["file:///home/runner/work/slack-action/slack-action/src/types.ts"],"names":[],"mappings":"AAAA,OAAO,CAAC,MAAM,CAAC;IACb,UAAU,MAAM,CAAC;QACf,UAAU,UAAU;YAClB,eAAe,EAAE,MAAM,CAAC;SACzB;KACF;CACF;AAED,OAAO,EAAE,CAAC"}

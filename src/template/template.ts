@@ -1,5 +1,5 @@
-import { CI } from './CI';
-import { CD } from './CD';
+import { CI } from './ci';
+import { CD } from './cd';
 
 export type SlackOption = { channel: string };
 export type Template = (option: SlackOption) => Promise<void>;

@@ -10,8 +10,8 @@
 
 **Required** Action Template
 
-- e2e
-- cd (required input: "fail")
+- CI
+- CD (required input: "fail")
 
 ## Example usage
 

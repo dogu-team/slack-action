@@ -1,1 +1,1 @@
-{"version":3,"file":"user.d.ts","sourceRoot":"","sources":["file:///C:/Users/lumyj/Documents/GitHub/slack-action/src/user.ts"],"names":[],"mappings":"AAAA,MAAM,MAAM,IAAI,GAAG;IACjB,CAAC,UAAU,EAAE,MAAM,GAAG,MAAM,CAAC;CAC9B,CAAC;AAEF,eAAO,MAAM,KAAK,EAAE,IAOnB,CAAC"}
+{"version":3,"file":"user.d.ts","sourceRoot":"","sources":["file:///home/runner/work/slack-action/slack-action/src/user.ts"],"names":[],"mappings":"AAAA,MAAM,MAAM,IAAI,GAAG;IACjB,CAAC,UAAU,EAAE,MAAM,GAAG,MAAM,CAAC;CAC9B,CAAC;AAEF,eAAO,MAAM,KAAK,EAAE,IAOnB,CAAC"}

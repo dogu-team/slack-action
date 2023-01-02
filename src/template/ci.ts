@@ -5,7 +5,7 @@ import { Slack } from '../sdk/slack';
 import { users } from '../user';
 import { SlackOption } from './template';
 
-export async function e2e(option: SlackOption) {
+export async function ci(option: SlackOption) {
   const context = github.context;
   const payload = github.context.payload;
   const userId = users[context.actor] ? users[context.actor] : context.actor;

@@ -18603,7 +18603,7 @@ var Slack;
 
 /***/ }),
 
-/***/ 5039:
+/***/ 8533:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -18668,7 +18668,7 @@ exports.CD = CD;
 
 /***/ }),
 
-/***/ 3964:
+/***/ 1497:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -18746,11 +18746,11 @@ exports.CI = CI;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.templates = void 0;
-const CI_1 = __nccwpck_require__(3964);
-const CD_1 = __nccwpck_require__(5039);
+const ci_1 = __nccwpck_require__(1497);
+const cd_1 = __nccwpck_require__(8533);
 exports.templates = {
-    CI: CI_1.CI,
-    CD: CD_1.CD,
+    CI: ci_1.CI,
+    CD: cd_1.CD,
 };
 
 

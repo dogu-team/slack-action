@@ -18668,7 +18668,7 @@ exports.cd = cd;
 
 /***/ }),
 
-/***/ 3965:
+/***/ 1497:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -18697,11 +18697,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.e2e = void 0;
+exports.ci = void 0;
 const github = __importStar(__nccwpck_require__(5438));
 const slack_1 = __nccwpck_require__(2552);
 const user_1 = __nccwpck_require__(9713);
-async function e2e(option) {
+async function ci(option) {
     const context = github.context;
     const payload = github.context.payload;
     const userId = user_1.users[context.actor] ? user_1.users[context.actor] : context.actor;
@@ -18734,7 +18734,7 @@ async function e2e(option) {
         ],
     });
 }
-exports.e2e = e2e;
+exports.ci = ci;
 
 
 /***/ }),
@@ -18747,10 +18747,10 @@ exports.e2e = e2e;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.templates = void 0;
 const cd_1 = __nccwpck_require__(8533);
-const e2e_1 = __nccwpck_require__(3965);
+const ci_1 = __nccwpck_require__(1497);
 exports.templates = {
     cd: cd_1.cd,
-    e2e: e2e_1.e2e,
+    ci: ci_1.ci,
 };
 
 

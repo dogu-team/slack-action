@@ -18568,13 +18568,14 @@ const template_1 = __nccwpck_require__(7269);
     try {
         const slackChannel = core.getInput('slack-channel-id');
         const templateName = core.getInput('template');
+        const fail = core.getBooleanInput('fail');
         slack_1.Slack.init(process.env.SLACK_BOT_TOKEN);
         const template = template_1.templates[templateName];
         if (!template) {
             core.setFailed('No template specified');
             return;
         }
-        await template({ channel: slackChannel });
+        await template({ channel: slackChannel, fail: fail });
     }
     catch (error) {
         core.setFailed(error.message);
@@ -18634,14 +18635,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CD = void 0;
 const github = __importStar(__nccwpck_require__(5438));
-const core = __importStar(__nccwpck_require__(2186));
 const slack_1 = __nccwpck_require__(2552);
 const user_1 = __nccwpck_require__(9713);
 async function CD(option) {
     const context = github.context;
     const payload = github.context.payload;
     const userId = user_1.users[context.actor] ? user_1.users[context.actor] : context.actor;
-    const fail = core.getInput('fail', { required: false }) === 'true';
     await slack_1.Slack.web.chat.postMessage({
         channel: option.channel,
         icon_emoji: ':arona:',
@@ -18650,7 +18649,7 @@ async function CD(option) {
                 type: 'section',
                 text: {
                     type: 'mrkdwn',
-                    text: `*${context.workflow}* ${fail ? ':circleci-fail:' : ':circleci-pass:'}`,
+                    text: `*${context.workflow}* ${option.fail ? ':circleci-fail:' : ':circleci-pass:'}`,
                 },
             },
             {
@@ -18705,14 +18704,14 @@ async function CI(option) {
     const context = github.context;
     const payload = github.context.payload;
     const userId = user_1.users[context.actor] ? user_1.users[context.actor] : context.actor;
-    await slack_1.Slack.web.chat.postMessage({
+    const slackMessage = {
         channel: option.channel,
         blocks: [
             {
                 type: 'section',
                 text: {
                     type: 'mrkdwn',
-                    text: `*${context.workflow}* :circleci-fail:`,
+                    text: `*${context.workflow}*  ${option.fail ? ':circleci-fail:' : ':circleci-pass:'}}`,
                 },
             },
             {
@@ -18722,17 +18721,20 @@ async function CI(option) {
                     text: `*Action*\n${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
                 },
             },
-            {
-                type: 'section',
-                text: {
-                    type: 'mrkdwn',
-                    text: `*Commit*\n - author: <@${userId}> (${context.actor})\n - message: ${payload.head_commit.message}\n - link: ${payload.pull_request
-                        ? payload.pull_request.html_url
-                        : payload.head_commit.url}`,
-                },
-            },
         ],
-    });
+    };
+    if (option.fail) {
+        slackMessage.blocks.push({
+            type: 'section',
+            text: {
+                type: 'mrkdwn',
+                text: `*Commit*\n - author: <@${userId}> (${context.actor})\n - message: ${payload.head_commit.message}\n - link: ${payload.pull_request
+                    ? payload.pull_request.html_url
+                    : payload.head_commit.url}`,
+            },
+        });
+    }
+    await slack_1.Slack.web.chat.postMessage(slackMessage);
 }
 exports.CI = CI;
 

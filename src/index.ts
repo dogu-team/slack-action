@@ -8,6 +8,7 @@ import { templates } from './template/template';
   try {
     const slackChannel = core.getInput('slack-channel-id');
     const templateName = core.getInput('template');
+    const fail = core.getBooleanInput('fail');
 
     Slack.init(process.env.SLACK_BOT_TOKEN);
 
@@ -17,7 +18,7 @@ import { templates } from './template/template';
       return;
     }
 
-    await template({ channel: slackChannel });
+    await template({ channel: slackChannel, fail: fail });
   } catch (error: any) {
     core.setFailed(error.message);
   }

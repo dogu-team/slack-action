@@ -10,14 +10,16 @@ export async function CI(option: SlackOption) {
   const payload = github.context.payload;
   const userId = users[context.actor] ? users[context.actor] : context.actor;
 
-  await Slack.web.chat.postMessage({
+  const slackMessage = {
     channel: option.channel,
     blocks: [
       {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: `*${context.workflow}* :circleci-fail:`,
+          text: `*${context.workflow}*  ${
+            option.fail ? ':circleci-fail:' : ':circleci-pass:'
+          }}`,
         },
       },
       {
@@ -27,19 +29,24 @@ export async function CI(option: SlackOption) {
           text: `*Action*\n${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`,
         },
       },
-      {
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          text: `*Commit*\n - author: <@${userId}> (${
-            context.actor
-          })\n - message: ${payload.head_commit.message}\n - link: ${
-            payload.pull_request
-              ? payload.pull_request.html_url
-              : payload.head_commit.url
-          }`,
-        },
-      },
     ],
-  });
+  };
+
+  if (option.fail) {
+    slackMessage.blocks.push({
+      type: 'section',
+      text: {
+        type: 'mrkdwn',
+        text: `*Commit*\n - author: <@${userId}> (${
+          context.actor
+        })\n - message: ${payload.head_commit.message}\n - link: ${
+          payload.pull_request
+            ? payload.pull_request.html_url
+            : payload.head_commit.url
+        }`,
+      },
+    });
+  }
+
+  await Slack.web.chat.postMessage(slackMessage);
 }

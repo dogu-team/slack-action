@@ -1,5 +1,4 @@
 import * as github from '@actions/github';
-import * as core from '@actions/core';
 
 import { Slack } from '../sdk/slack';
 import { users } from '../user';
@@ -9,7 +8,6 @@ export async function CD(option: SlackOption) {
   const context = github.context;
   const payload = github.context.payload;
   const userId = users[context.actor] ? users[context.actor] : context.actor;
-  const fail = core.getInput('fail', { required: false }) === 'true';
 
   await Slack.web.chat.postMessage({
     channel: option.channel,
@@ -20,7 +18,7 @@ export async function CD(option: SlackOption) {
         text: {
           type: 'mrkdwn',
           text: `*${context.workflow}* ${
-            fail ? ':circleci-fail:' : ':circleci-pass:'
+            option.fail ? ':circleci-fail:' : ':circleci-pass:'
           }`,
         },
       },

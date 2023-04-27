@@ -24,7 +24,7 @@ jobs:
           git push
 
       - name: Delete old release
-        uses: dev-drprasad/delete-tag-and-release@v0.2.0
+        uses: dev-drprasad/delete-tag-and-release@v1.0
         with:
           tag_name: v1.0
           delete_release: true

@@ -18643,7 +18643,7 @@ async function CD(option) {
     const userId = user_1.users[context.actor] ? user_1.users[context.actor] : context.actor;
     await slack_1.Slack.web.chat.postMessage({
         channel: option.channel,
-        icon_emoji: ':arona:',
+        icon_emoji: option.fail ? ':what:' : ':arona:',
         blocks: [
             {
                 type: 'section',

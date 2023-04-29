@@ -11,14 +11,14 @@ export async function CD(option: SlackOption) {
 
   await Slack.web.chat.postMessage({
     channel: option.channel,
-    icon_emoji: option.fail ? ':what:' : ':arona:',
+    icon_emoji: option.isFail ? ':what:' : ':arona:',
     blocks: [
       {
         type: 'section',
         text: {
           type: 'mrkdwn',
           text: `*${context.workflow}* ${
-            option.fail ? ':circleci-fail:' : ':circleci-pass:'
+            option.isFail ? ':circleci-fail:' : ':circleci-pass:'
           }`,
         },
       },

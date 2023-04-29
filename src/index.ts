@@ -1,4 +1,5 @@
 import * as core from '@actions/core';
+import * as github from '@actions/github';
 import './types';
 
 import { Slack } from './sdk/slack';
@@ -8,9 +9,7 @@ import { templates } from './template/template';
   try {
     const slackChannel = core.getInput('slack-channel-id');
     const templateName = core.getInput('template');
-    const fail = core.getInput('fail');
-
-    console.log('FAIL', fail);
+    const isFail = core.getBooleanInput('is-fail');
 
     Slack.init(process.env.SLACK_BOT_TOKEN);
 
@@ -22,7 +21,7 @@ import { templates } from './template/template';
 
     await template({
       channel: slackChannel,
-      fail: fail === 'true' ? true : false,
+      isFail: isFail,
     });
   } catch (error: any) {
     core.setFailed(error.message);

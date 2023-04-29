@@ -18,7 +18,7 @@ export async function CI(option: SlackOption) {
         text: {
           type: 'mrkdwn',
           text: `*${context.workflow}*  ${
-            option.fail ? ':circleci-fail:' : ':circleci-pass:'
+            option.isFail ? ':circleci-fail:' : ':circleci-pass:'
           }`,
         },
       },
@@ -32,7 +32,7 @@ export async function CI(option: SlackOption) {
     ],
   };
 
-  if (option.fail) {
+  if (option.isFail) {
     slackMessage.blocks.push({
       type: 'section',
       text: {

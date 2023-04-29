@@ -18714,7 +18714,7 @@ async function CI(option) {
                 type: 'section',
                 text: {
                     type: 'mrkdwn',
-                    text: `*${context.workflow}*  ${option.fail ? ':circleci-fail:' : ':circleci-pass:'}}`,
+                    text: `*${context.workflow}*  ${option.fail ? ':circleci-fail:' : ':circleci-pass:'}`,
                 },
             },
             {

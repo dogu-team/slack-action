@@ -18568,14 +18568,17 @@ const template_1 = __nccwpck_require__(7269);
     try {
         const slackChannel = core.getInput('slack-channel-id');
         const templateName = core.getInput('template');
-        const fail = core.getBooleanInput('fail');
+        const fail = core.getInput('fail');
         slack_1.Slack.init(process.env.SLACK_BOT_TOKEN);
         const template = template_1.templates[templateName];
         if (!template) {
             core.setFailed('No template specified');
             return;
         }
-        await template({ channel: slackChannel, fail: fail });
+        await template({
+            channel: slackChannel,
+            fail: fail === 'true' ? true : false,
+        });
     }
     catch (error) {
         core.setFailed(error.message);

@@ -1,6 +1,6 @@
 export type SlackOption = {
     channel: string;
-    fail: boolean;
+    isFail: boolean;
 };
 export type Template = (option: SlackOption) => Promise<void>;
 export declare const templates: {

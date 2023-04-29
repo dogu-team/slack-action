@@ -18568,8 +18568,7 @@ const template_1 = __nccwpck_require__(7269);
     try {
         const slackChannel = core.getInput('slack-channel-id');
         const templateName = core.getInput('template');
-        const fail = core.getInput('fail');
-        console.log('FAIL', fail);
+        const isFail = core.getBooleanInput('is-fail');
         slack_1.Slack.init(process.env.SLACK_BOT_TOKEN);
         const template = template_1.templates[templateName];
         if (!template) {
@@ -18578,7 +18577,7 @@ const template_1 = __nccwpck_require__(7269);
         }
         await template({
             channel: slackChannel,
-            fail: fail === 'true' ? true : false,
+            isFail: isFail,
         });
     }
     catch (error) {
@@ -18647,13 +18646,13 @@ async function CD(option) {
     const userId = user_1.users[context.actor] ? user_1.users[context.actor] : context.actor;
     await slack_1.Slack.web.chat.postMessage({
         channel: option.channel,
-        icon_emoji: option.fail ? ':what:' : ':arona:',
+        icon_emoji: option.isFail ? ':what:' : ':arona:',
         blocks: [
             {
                 type: 'section',
                 text: {
                     type: 'mrkdwn',
-                    text: `*${context.workflow}* ${option.fail ? ':circleci-fail:' : ':circleci-pass:'}`,
+                    text: `*${context.workflow}* ${option.isFail ? ':circleci-fail:' : ':circleci-pass:'}`,
                 },
             },
             {
@@ -18715,7 +18714,7 @@ async function CI(option) {
                 type: 'section',
                 text: {
                     type: 'mrkdwn',
-                    text: `*${context.workflow}*  ${option.fail ? ':circleci-fail:' : ':circleci-pass:'}`,
+                    text: `*${context.workflow}*  ${option.isFail ? ':circleci-fail:' : ':circleci-pass:'}`,
                 },
             },
             {
@@ -18727,7 +18726,7 @@ async function CI(option) {
             },
         ],
     };
-    if (option.fail) {
+    if (option.isFail) {
         slackMessage.blocks.push({
             type: 'section',
             text: {

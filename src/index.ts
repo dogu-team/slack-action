@@ -10,6 +10,11 @@ import { templates } from './template/template';
     const slackChannel = core.getInput('slack-channel-id');
     const templateName = core.getInput('template');
     const isSucceed = core.getBooleanInput('is-succeed');
+    const ignoreNotify = core.getBooleanInput('ignore-notify');
+
+    if (ignoreNotify) {
+      return;
+    }
 
     Slack.init(process.env.SLACK_BOT_TOKEN);
 

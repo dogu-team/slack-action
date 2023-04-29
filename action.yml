@@ -7,9 +7,13 @@ inputs:
   slack-channel-id:
     required: true
     description: 'Slack channel id'
-  is-fail:
+  is-succeed:
     required: true
-    description: 'Job fail'
+    description: 'Job is succeed'
+  ignore-notify:
+    require: false
+    description: 'Ignore Notify'
+
 runs:
   using: 'node16'
   main: 'dist/index.js'

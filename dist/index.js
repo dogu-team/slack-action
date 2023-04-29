@@ -18569,6 +18569,7 @@ const template_1 = __nccwpck_require__(7269);
         const slackChannel = core.getInput('slack-channel-id');
         const templateName = core.getInput('template');
         const fail = core.getInput('fail');
+        console.log('FAIL', fail);
         slack_1.Slack.init(process.env.SLACK_BOT_TOKEN);
         const template = template_1.templates[templateName];
         if (!template) {

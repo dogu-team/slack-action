@@ -19,7 +19,7 @@ export async function CI(option: SlackOption) {
           type: 'mrkdwn',
           text: `*${context.workflow}*  ${
             option.fail ? ':circleci-fail:' : ':circleci-pass:'
-          }}`,
+          }`,
         },
       },
       {

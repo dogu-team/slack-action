@@ -18569,7 +18569,9 @@ const template_1 = __nccwpck_require__(7269);
         const slackChannel = core.getInput('slack-channel-id');
         const templateName = core.getInput('template');
         const isSucceed = core.getBooleanInput('is-succeed');
-        const ignoreNotify = core.getBooleanInput('ignore-notify');
+        const ignoreNotify = core.getBooleanInput('ignore-notify', {
+            required: false,
+        });
         if (ignoreNotify) {
             return;
         }

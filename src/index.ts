@@ -10,6 +10,8 @@ import { templates } from './template/template';
     const templateName = core.getInput('template');
     const fail = core.getInput('fail');
 
+    console.log('FAIL', fail);
+
     Slack.init(process.env.SLACK_BOT_TOKEN);
 
     const template = templates[templateName];

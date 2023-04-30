@@ -30,7 +30,7 @@ import { ResultStatus } from './types';
     const existResultStatus = Object.values(ResultStatus).includes(
       resultStatus as ResultStatus,
     );
-    if (existResultStatus) {
+    if (!existResultStatus) {
       core.setFailed(`${resultStatus} is invalid status`);
       return;
     }

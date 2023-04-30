@@ -1,8 +1,9 @@
-export type SlackOption = {
+import { ResultStatus } from '../types';
+export type TemplateOption = {
     channel: string;
-    isFail: boolean;
+    resultStatus: ResultStatus;
 };
-export type Template = (option: SlackOption) => Promise<void>;
+export type Template = (option: TemplateOption) => Promise<void>;
 export declare const templates: {
     [name: string]: Template;
 };

@@ -18531,6 +18531,51 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 3443:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Emoji = void 0;
+const types_1 = __nccwpck_require__(5077);
+var Emoji;
+(function (Emoji) {
+    function getCircle(status) {
+        switch (status) {
+            case types_1.ResultStatus.SUCCESS:
+                return ':circleci-pass:';
+            case types_1.ResultStatus.FAILURE:
+                return ':circleci-fail:';
+            case types_1.ResultStatus.CANCELED:
+                return ':circleci-cancel:';
+            case types_1.ResultStatus.SKIPPED:
+                return ':circleci-skip:';
+            default:
+                return ':circleci-cancel:';
+        }
+    }
+    Emoji.getCircle = getCircle;
+    function getProfile(status) {
+        switch (status) {
+            case types_1.ResultStatus.SUCCESS:
+                return ':arona:';
+            case types_1.ResultStatus.FAILURE:
+                return ':what:';
+            case types_1.ResultStatus.CANCELED:
+                return ':like_peanuts:';
+            case types_1.ResultStatus.SKIPPED:
+                return ':arknights_2:';
+            default:
+                return ':paimon-ahe:';
+        }
+    }
+    Emoji.getProfile = getProfile;
+})(Emoji = exports.Emoji || (exports.Emoji = {}));
+
+
+/***/ }),
+
 /***/ 6144:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -18564,11 +18609,12 @@ const core = __importStar(__nccwpck_require__(2186));
 __nccwpck_require__(5077);
 const slack_1 = __nccwpck_require__(2552);
 const template_1 = __nccwpck_require__(7269);
+const types_1 = __nccwpck_require__(5077);
 (async () => {
     try {
         const slackChannel = core.getInput('slack-channel-id');
         const templateName = core.getInput('template');
-        const isSucceed = core.getBooleanInput('is-succeed');
+        const resultStatus = core.getInput('result-status');
         const ignoreNotify = core.getBooleanInput('ignore-notify', {
             required: false,
         });
@@ -18581,9 +18627,12 @@ const template_1 = __nccwpck_require__(7269);
             core.setFailed('No template specified');
             return;
         }
+        if (types_1.ResultStatus[resultStatus] === undefined) {
+            core.setFailed(`${resultStatus} is invalid status`);
+        }
         await template({
             channel: slackChannel,
-            isFail: !isSucceed,
+            resultStatus: resultStatus,
         });
     }
     catch (error) {
@@ -18646,19 +18695,20 @@ exports.CD = void 0;
 const github = __importStar(__nccwpck_require__(5438));
 const slack_1 = __nccwpck_require__(2552);
 const user_1 = __nccwpck_require__(9713);
+const emoji_1 = __nccwpck_require__(3443);
 async function CD(option) {
     const context = github.context;
     const payload = github.context.payload;
     const userId = user_1.users[context.actor] ? user_1.users[context.actor] : context.actor;
     await slack_1.Slack.web.chat.postMessage({
         channel: option.channel,
-        icon_emoji: option.isFail ? ':what:' : ':arona:',
+        icon_emoji: emoji_1.Emoji.getProfile(option.resultStatus),
         blocks: [
             {
                 type: 'section',
                 text: {
                     type: 'mrkdwn',
-                    text: `*${context.workflow}* ${option.isFail ? ':circleci-fail:' : ':circleci-pass:'}`,
+                    text: `*${context.workflow}* ${emoji_1.Emoji.getCircle(option.resultStatus)}`,
                 },
             },
             {
@@ -18709,18 +18759,21 @@ exports.CI = void 0;
 const github = __importStar(__nccwpck_require__(5438));
 const slack_1 = __nccwpck_require__(2552);
 const user_1 = __nccwpck_require__(9713);
+const types_1 = __nccwpck_require__(5077);
+const emoji_1 = __nccwpck_require__(3443);
 async function CI(option) {
     const context = github.context;
     const payload = github.context.payload;
     const userId = user_1.users[context.actor] ? user_1.users[context.actor] : context.actor;
     const slackMessage = {
         channel: option.channel,
+        icon_emoji: emoji_1.Emoji.getProfile(option.resultStatus),
         blocks: [
             {
                 type: 'section',
                 text: {
                     type: 'mrkdwn',
-                    text: `*${context.workflow}*  ${option.isFail ? ':circleci-fail:' : ':circleci-pass:'}`,
+                    text: `*${context.workflow}* ${emoji_1.Emoji.getCircle(option.resultStatus)}`,
                 },
             },
             {
@@ -18732,7 +18785,7 @@ async function CI(option) {
             },
         ],
     };
-    if (option.isFail) {
+    if (option.resultStatus === types_1.ResultStatus.FAILURE) {
         slackMessage.blocks.push({
             type: 'section',
             text: {
@@ -18773,6 +18826,14 @@ exports.templates = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ResultStatus = void 0;
+var ResultStatus;
+(function (ResultStatus) {
+    ResultStatus["SUCCESS"] = "success";
+    ResultStatus["FAILURE"] = "failure";
+    ResultStatus["CANCELED"] = "canceled";
+    ResultStatus["SKIPPED"] = "skipped";
+})(ResultStatus = exports.ResultStatus || (exports.ResultStatus = {}));
 
 
 /***/ }),

@@ -1,3 +1,3 @@
-import { SlackOption } from './template';
-export declare function CD(option: SlackOption): Promise<void>;
+import { TemplateOption } from './template';
+export declare function CD(option: TemplateOption): Promise<void>;
 //# sourceMappingURL=cd.d.ts.map

@@ -1,3 +1,3 @@
-import { SlackOption } from './template';
-export declare function CI(option: SlackOption): Promise<void>;
+import { TemplateOption } from './template';
+export declare function CI(option: TemplateOption): Promise<void>;
 //# sourceMappingURL=ci.d.ts.map

@@ -5,5 +5,10 @@ declare global {
         }
     }
 }
-export {};
+export declare enum ResultStatus {
+    SUCCESS = "success",
+    FAILURE = "failure",
+    CANCELED = "canceled",
+    SKIPPED = "skipped"
+}
 //# sourceMappingURL=types.d.ts.map

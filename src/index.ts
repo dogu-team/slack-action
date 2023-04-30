@@ -27,8 +27,12 @@ import { ResultStatus } from './types';
       return;
     }
 
-    if (ResultStatus[resultStatus as keyof typeof ResultStatus] === undefined) {
+    const existResultStatus = Object.values(ResultStatus).includes(
+      resultStatus as ResultStatus,
+    );
+    if (existResultStatus) {
       core.setFailed(`${resultStatus} is invalid status`);
+      return;
     }
 
     await template({

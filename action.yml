@@ -7,9 +7,9 @@ inputs:
   slack-channel-id:
     required: true
     description: 'Slack channel id'
-  is-succeed:
+  status:
     required: true
-    description: 'Job is succeed'
+    description: 'Job status'
   ignore-notify:
     require: false
     description: 'Ignore Notify'

@@ -6,4 +6,9 @@ declare global {
   }
 }
 
-export {};
+export enum ResultStatus {
+  SUCCESS = 'success',
+  FAILURE = 'failure',
+  CANCELED = 'canceled',
+  SKIPPED = 'skipped',
+}

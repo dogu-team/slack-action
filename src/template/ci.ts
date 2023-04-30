@@ -3,23 +3,24 @@ import * as core from '@actions/core';
 
 import { Slack } from '../sdk/slack';
 import { users } from '../user';
-import { SlackOption } from './template';
+import { TemplateOption } from './template';
+import { ResultStatus } from '../types';
+import { Emoji } from '../emoji/emoji';
 
-export async function CI(option: SlackOption) {
+export async function CI(option: TemplateOption) {
   const context = github.context;
   const payload = github.context.payload;
   const userId = users[context.actor] ? users[context.actor] : context.actor;
 
   const slackMessage = {
     channel: option.channel,
+    icon_emoji: Emoji.getProfile(option.resultStatus),
     blocks: [
       {
         type: 'section',
         text: {
           type: 'mrkdwn',
-          text: `*${context.workflow}*  ${
-            option.isFail ? ':circleci-fail:' : ':circleci-pass:'
-          }`,
+          text: `*${context.workflow}* ${Emoji.getCircle(option.resultStatus)}`,
         },
       },
       {
@@ -32,7 +33,7 @@ export async function CI(option: SlackOption) {
     ],
   };
 
-  if (option.isFail) {
+  if (option.resultStatus === ResultStatus.FAILURE) {
     slackMessage.blocks.push({
       type: 'section',
       text: {

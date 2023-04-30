@@ -4,12 +4,13 @@ import './types';
 
 import { Slack } from './sdk/slack';
 import { templates } from './template/template';
+import { ResultStatus } from './types';
 
 (async () => {
   try {
     const slackChannel = core.getInput('slack-channel-id');
     const templateName = core.getInput('template');
-    const isSucceed = core.getBooleanInput('is-succeed');
+    const resultStatus = core.getInput('result-status');
     const ignoreNotify = core.getBooleanInput('ignore-notify', {
       required: false,
     });
@@ -26,9 +27,13 @@ import { templates } from './template/template';
       return;
     }
 
+    if (ResultStatus[resultStatus as keyof typeof ResultStatus] === undefined) {
+      core.setFailed(`${resultStatus} is invalid status`);
+    }
+
     await template({
       channel: slackChannel,
-      isFail: !isSucceed,
+      resultStatus: resultStatus as ResultStatus,
     });
   } catch (error: any) {
     core.setFailed(error.message);

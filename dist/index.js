@@ -18627,8 +18627,10 @@ const types_1 = __nccwpck_require__(5077);
             core.setFailed('No template specified');
             return;
         }
-        if (types_1.ResultStatus[resultStatus] === undefined) {
+        const existResultStatus = Object.values(types_1.ResultStatus).includes(resultStatus);
+        if (existResultStatus) {
             core.setFailed(`${resultStatus} is invalid status`);
+            return;
         }
         await template({
             channel: slackChannel,

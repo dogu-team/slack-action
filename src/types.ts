@@ -9,6 +9,6 @@ declare global {
 export enum ResultStatus {
   SUCCESS = 'success',
   FAILURE = 'failure',
-  CANCELED = 'canceled',
+  CANCELLED = 'cancelled',
   SKIPPED = 'skipped',
 }

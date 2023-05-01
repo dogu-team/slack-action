@@ -7,7 +7,7 @@ export module Emoji {
         return ':circleci-pass:';
       case ResultStatus.FAILURE:
         return ':circleci-fail:';
-      case ResultStatus.CANCELED:
+      case ResultStatus.CANCELLED:
         return ':circleci-cancel:';
       case ResultStatus.SKIPPED:
         return ':circleci-skip:';
@@ -22,7 +22,7 @@ export module Emoji {
         return ':arona:';
       case ResultStatus.FAILURE:
         return ':what:';
-      case ResultStatus.CANCELED:
+      case ResultStatus.CANCELLED:
         return ':like_peanuts:';
       case ResultStatus.SKIPPED:
         return ':arknights_2:';

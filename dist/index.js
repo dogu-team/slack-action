@@ -18547,7 +18547,7 @@ var Emoji;
                 return ':circleci-pass:';
             case types_1.ResultStatus.FAILURE:
                 return ':circleci-fail:';
-            case types_1.ResultStatus.CANCELED:
+            case types_1.ResultStatus.CANCELLED:
                 return ':circleci-cancel:';
             case types_1.ResultStatus.SKIPPED:
                 return ':circleci-skip:';
@@ -18562,7 +18562,7 @@ var Emoji;
                 return ':arona:';
             case types_1.ResultStatus.FAILURE:
                 return ':what:';
-            case types_1.ResultStatus.CANCELED:
+            case types_1.ResultStatus.CANCELLED:
                 return ':like_peanuts:';
             case types_1.ResultStatus.SKIPPED:
                 return ':arknights_2:';
@@ -18833,7 +18833,7 @@ var ResultStatus;
 (function (ResultStatus) {
     ResultStatus["SUCCESS"] = "success";
     ResultStatus["FAILURE"] = "failure";
-    ResultStatus["CANCELED"] = "canceled";
+    ResultStatus["CANCELLED"] = "cancelled";
     ResultStatus["SKIPPED"] = "skipped";
 })(ResultStatus = exports.ResultStatus || (exports.ResultStatus = {}));
 

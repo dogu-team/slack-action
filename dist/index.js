@@ -18787,7 +18787,8 @@ async function CI(option) {
             },
         ],
     };
-    if (option.resultStatus === types_1.ResultStatus.FAILURE) {
+    if (option.resultStatus === types_1.ResultStatus.FAILURE ||
+        option.resultStatus === types_1.ResultStatus.CANCELLED) {
         slackMessage.blocks.push({
             type: 'section',
             text: {

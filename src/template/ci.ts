@@ -33,7 +33,10 @@ export async function CI(option: TemplateOption) {
     ],
   };
 
-  if (option.resultStatus === ResultStatus.FAILURE) {
+  if (
+    option.resultStatus === ResultStatus.FAILURE ||
+    option.resultStatus === ResultStatus.CANCELLED
+  ) {
     slackMessage.blocks.push({
       type: 'section',
       text: {

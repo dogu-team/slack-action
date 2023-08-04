@@ -40,6 +40,7 @@ import { ResultStatus } from './types';
       resultStatus: resultStatus as ResultStatus,
     });
   } catch (error: any) {
+    console.error(error);
     core.setFailed(error.message);
   }
 })();

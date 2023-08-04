@@ -18638,6 +18638,7 @@ const types_1 = __nccwpck_require__(5077);
         });
     }
     catch (error) {
+        console.error(error);
         core.setFailed(error.message);
     }
 })();
